@@ -14,7 +14,7 @@ import java.util.Vector;
  */
 public class HSMDataPackage {
 
-		private String _CfgPath = "src/com/util/hsm.property";
+	private String _CfgPath = HSMDataPackage.class.getResource("/").getPath() + "hsm.property";
 	private byte _Version = 1;
 	private ByteArrayOutputStream _ByteArrayBuffer = new ByteArrayOutputStream();
 	//为了保持长连接的通讯，使用static

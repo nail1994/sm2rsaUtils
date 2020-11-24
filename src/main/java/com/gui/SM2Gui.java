@@ -51,53 +51,47 @@ public class SM2Gui extends JDialog
         container.add(button);
         container.add(button_2);
 
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("===加密===");
-                try
-                {
-                    String publicKey = public_area.getText();
-                    String temp = mingwenArea.getText();
+        button.addActionListener(e -> {
+            System.out.println("===加密===");
+            try
+            {
+                String publicKey = public_area.getText();
+                String temp = mingwenArea.getText();
 
-                    RsaMessageService rsaMessageService = new RsaMessageService();
+                RsaMessageService rsaMessageService = new RsaMessageService();
 
-                    Map<String,String> keys = rsaMessageService.getPublicKeyXY(publicKey);
+                Map<String,String> keys = rsaMessageService.getPublicKeyXY(publicKey);
 
-                    String resultStr = rsaMessageService.sm2Encrypt(keys.get("publicKeyX"),keys.get("publicKeyY"),temp);
+                String resultStr = rsaMessageService.sm2Encrypt(keys.get("publicKeyX"),keys.get("publicKeyY"),temp);
 
-                    mingwenArea.setText("");
-                    miwenArea.setText(resultStr);
+                mingwenArea.setText("");
+                miwenArea.setText(resultStr);
 
-                    System.out.println("===加密成功===");
-                }catch (Exception e1){
-                    e1.printStackTrace();
-                    miwenArea.setText("加密失败!");
-                }
+                System.out.println("===加密成功===");
+            }catch (Exception e1){
+                e1.printStackTrace();
+                miwenArea.setText("加密失败!");
             }
         });
 
-        button_2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("===解密===start");
-                try{
+        button_2.addActionListener(e -> {
+            System.out.println("===解密===start");
+            try{
 
-                    String privateKey = privateKey_area.getText();
-                    String miwenStr = miwenArea.getText();
+                String privateKey = privateKey_area.getText();
+                String miwenStr = miwenArea.getText();
 
-                    RsaMessageService service = new RsaMessageService();
-                    String mingwenStr = service.sm2Decode(miwenStr,privateKey);
+                RsaMessageService service = new RsaMessageService();
+                String mingwenStr = service.sm2Decode(miwenStr,privateKey);
 
-                    miwenArea.setText("");
-                    mingwenArea.setText(mingwenStr);
+                miwenArea.setText("");
+                mingwenArea.setText(mingwenStr);
 
-                }catch (Exception e1){
-                    e1.printStackTrace();
-                    mingwenArea.setText("解密失败!");
-                }
-
+            }catch (Exception e1){
+                e1.printStackTrace();
+                mingwenArea.setText("解密失败!");
             }
+
         });
 
         this.setVisible(true);
